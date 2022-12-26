@@ -5,25 +5,21 @@ const axiosInstance = axios.create({
   headers: {
     "Access-Control-Allow-Origin": "*",
   },
-  timeout: 10000,
 });
+let dataLogin = JSON.parse(localStorage.getItem("dataLogin"));
+if (dataLogin !== null) {
+  axiosInstance.defaults.headers.common["Authorization"] =
+    "Bearer " + dataLogin.token;
+}
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      let token = localStorage.getItem("authorizedToken");
-      if (token) {
-        return new Promise(function (resolve, reject) {
-          originalRequest.headers["Authorization"] = `Bearer ${token}`;
-          resolve(axios(originalRequest));
-        });
-      }
-    }
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response.status === 401 ) {
+
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;

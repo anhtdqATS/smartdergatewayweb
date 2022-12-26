@@ -1,13 +1,13 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-
+// import "default-passive-events";
+import "../polyfill.js";
 import App from "./App.vue";
 import router from "./router";
 import { useMainStore } from "@/stores/main.js";
 import { useStyleStore } from "@/stores/style.js";
 import { darkModeKey, styleKey } from "@/config.js";
 import "./css/main.css";
-
 /* Init Pinia */
 const pinia = createPinia();
 

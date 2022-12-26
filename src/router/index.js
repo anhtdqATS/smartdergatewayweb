@@ -21,6 +21,39 @@ const routes = [
   },
   {
     meta: {
+      title: "Channel",
+    },
+    path: "/channel",
+    name: "channel",
+    component: () => import("@/module/gatewaychannel/view/Setting.vue"),
+  },
+  {
+    meta: {
+      title: "Mapping",
+    },
+    path: "/mapping",
+    name: "mapping",
+    component: () => import("@/module/gatewayMapping/view/index.vue"),
+  },
+  {
+    meta: {
+      title: "Session Log",
+    },
+    path: "/sessionLog",
+    name: "sessionLog",
+    component: () => import("@/module/gatewayLogs/view/sessionLog.vue"),
+  },
+  {
+    meta: {
+      title: " Service Log",
+      transition: "slide-left",
+    },
+    path: "/serviceLog",
+    name: "serviceLog",
+    component: () => import("@/module/gatewayLogs/view/serviceLog.vue"),
+  },
+  {
+    meta: {
       title: "Tables",
     },
     path: "/tables",
@@ -42,7 +75,7 @@ const routes = [
     },
     path: "/profile",
     name: "profile",
-    component: () => import("@/views/ProfileView.vue"),
+    component: () => import("@/module/profile/view/ProfileView.vue"),
   },
   {
     meta: {
@@ -62,11 +95,11 @@ const routes = [
   },
   {
     meta: {
-      title: "Responsive layout",
+      title: "Forwarder layout",
     },
-    path: "/responsive",
-    name: "responsive",
-    component: () => import("@/views/ResponsiveView.vue"),
+    path: "/forwarder",
+    name: "Forwarder",
+    component: () => import("@/module/forwarder/view/ForwarderView.vue"),
   },
 
   {
@@ -76,6 +109,22 @@ const routes = [
     path: "/error",
     name: "error",
     component: () => import("@/views/ErrorView.vue"),
+  },
+  {
+    meta: {
+      title: "About",
+    },
+    path: "/about",
+    name: "about",
+    component: () => import("@/module/Info/view/About.vue"),
+  },
+  {
+    meta: {
+      title: "License",
+    },
+    path: "/license",
+    name: "license",
+    component: () => import("@/module/Info/view/LicenseView.vue"),
   },
 ];
 

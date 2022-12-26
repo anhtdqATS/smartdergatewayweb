@@ -5,6 +5,7 @@ const plugin = require("tailwindcss/plugin");
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: "class", // or 'media' or 'class'
+  mode: "jit",
   theme: {
     asideScrollbars: {
       light: "light",

@@ -54,7 +54,6 @@ const itemLabel = computed(() =>
 const isDropdownActive = ref(false);
 
 const menuClick = (event) => {
-  console.log(event);
   emit("menu-click", event, props.item);
 
   if (props.item.menu) {

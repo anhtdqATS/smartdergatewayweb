@@ -1,16 +1,16 @@
 import {
   mdiAccountCircle,
   mdiMonitor,
-  mdiGithub,
+  mdiLanConnect,
   mdiLock,
   mdiAlertCircle,
   mdiSquareEditOutline,
   mdiTable,
   mdiViewList,
   mdiTelevisionGuide,
-  mdiResponsive,
   mdiPalette,
-  mdiReact,
+  mdiBookCogOutline,
+  mdiArrangeBringForward,
 } from "@mdi/js";
 
 export default [
@@ -19,6 +19,35 @@ export default [
     to: "/dashboard",
     icon: mdiMonitor,
     label: "Dashboard",
+  },
+  {
+    permissions: ["admin", "engineer"],
+    to: "/channel",
+    label: "Channel",
+    icon: mdiBookCogOutline,
+  },
+  {
+    permissions: ["admin", "engineer"],
+    to: "/mapping",
+    label: "Mapping",
+    icon: mdiLanConnect,
+  },
+  {
+    permissions: ["admin", "engineer"],
+    label: "Logs",
+    icon: mdiViewList,
+    menu: [
+      {
+        permissions: ["admin", "engineer"],
+        to: "/sessionLog",
+        label: "Session Log",
+      },
+      {
+        permissions: ["admin", "engineer"],
+        to: "/serviceLog",
+        label: " Service Log",
+      },
+    ],
   },
   {
     permissions: ["admin", "engineer"],
@@ -40,9 +69,9 @@ export default [
   },
   {
     permissions: ["admin", "engineer"],
-    to: "/responsive",
-    label: "Responsive",
-    icon: mdiResponsive,
+    to: "/forwarder",
+    label: "Forwarder",
+    icon: mdiArrangeBringForward,
   },
   {
     permissions: ["admin", "engineer"],
@@ -58,7 +87,7 @@ export default [
   },
   {
     permissions: ["admin", "engineer"],
-    to: "/login",
+    to: "/",
     label: "Login",
     icon: mdiLock,
   },

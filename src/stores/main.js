@@ -5,9 +5,7 @@ export const useMainStore = defineStore("main", {
   state: () => ({
     /* User */
     userName: null,
-    userEmail: null,
-    userAvatar: null,
-
+    time: null,
     /* Field focus with ctrl+k (to register only once) */
     isFieldFocusRegistered: false,
 
@@ -17,14 +15,11 @@ export const useMainStore = defineStore("main", {
   }),
   actions: {
     setUser(payload) {
-      if (payload.name) {
-        this.userName = payload.name;
+      if (payload.userName) {
+        this.userName = payload.userName;
       }
-      if (payload.email) {
-        this.userEmail = payload.email;
-      }
-      if (payload.avatar) {
-        this.userAvatar = payload.avatar;
+      if (payload.time) {
+        this.time = payload.time;
       }
     },
 
@@ -37,7 +32,12 @@ export const useMainStore = defineStore("main", {
           }
         })
         .catch((error) => {
-          alert(error.message);
+          ElMessage({
+            message: error.message,
+            grouping: true,
+            showClose: true,
+            type: "warning",
+          });
         });
     },
   },

@@ -1,6 +1,6 @@
 <script setup>
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import menuAside from "@/menuAside.js";
 import menuNavBar from "@/menuNavBar.js";
@@ -12,28 +12,57 @@ import NavBar from "@/components/NavBar.vue";
 import NavBarItemPlain from "@/components/NavBarItemPlain.vue";
 import AsideMenu from "@/components/AsideMenu.vue";
 import FooterBar from "@/components/FooterBar.vue";
-import logoutApi from "./api/logoutApi";
+import mainApi from "./api/mainApi";
+import { GatewayServiceId } from "../Constants/index.js";
+
+const dataLogin = computed(() => JSON.parse(localStorage.getItem("dataLogin")));
+const d = new Date(dataLogin.value.dataTime);
+const time = d.toLocaleString("es-AR");
+
+console.log(dataLogin.value);
 
 useMainStore().setUser({
-  name: "John Doe",
-  email: "john@example.com",
-  avatar:
-    "https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93",
+  userName: dataLogin.value.user,
+  time: time,
 });
 
 const layoutAsidePadding = "xl:pl-60";
 
 const styleStore = useStyleStore();
-
 const router = useRouter();
 
 const isAsideMobileExpanded = ref(false);
 const isAsideLgActive = ref(false);
-
+let isTimer = null;
 router.beforeEach(() => {
   isAsideMobileExpanded.value = false;
   isAsideLgActive.value = false;
 });
+
+const darkMode = computed(() => {
+  return useStyleStore().darkMode;
+});
+console.log(darkMode.value);
+const r = document.querySelector(":root");
+
+const setElementPlusDarkMode = () => {
+  if (darkMode.value) {
+    r.style.setProperty("--bg-node-tree", "#141c2f");
+    r.style.setProperty("--el-bg-color", "#141c2f");
+  } else {
+    r.style.setProperty("--bg-node-tree", "#f5f7fa");
+    r.style.setProperty("--el-bg-color", "#fff");
+  }
+};
+setElementPlusDarkMode();
+watch(darkMode, () => {
+  setElementPlusDarkMode();
+});
+const removeSessions = () => {
+  localStorage.removeItem("dataLogin");
+  mainApi.removeAuthorizationHeaders();
+  router.push("/");
+};
 
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
@@ -41,16 +70,73 @@ const menuClick = (event, item) => {
   }
 
   if (item.isLogout) {
-    logoutApi
-      .logout()
-      .then(() => {
-        router.push("/");
-        localStorage.removeItem("dataLogin");
-        logoutApi.removeAuthorizationHeaders();
-      })
-      .catch(() => {});
+    Logout();
+  }
+  if (item.isSaveGateway) {
+    saveGatewayConfig();
   }
 };
+//Save gateway
+const saveGatewayConfig = () => {
+  let data = {
+    receiver: GatewayServiceId,
+    payload: {
+      cmdType: 1,
+    },
+  };
+  mainApi
+    .save(data)
+    .then((response) => {
+      if (response.data.error.length > 0) {
+        ElMessage({
+          type: "warning",
+          message: "Data not return",
+        });
+      } else {
+        ElMessage({
+          type: "success",
+          message: "save config success",
+        });
+      }
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        this.logout();
+      }
+      ElMessage({
+        type: "error",
+        message: "Server error",
+      });
+    });
+};
+
+//Logout
+const Logout = () => {
+  mainApi
+    .logout()
+    .then(() => {
+      removeSessions();
+    })
+    .catch(() => {});
+};
+
+//PING API
+
+const Ping = () => {
+  mainApi
+    .ping()
+    .then(() => {})
+    .catch((err) => {
+      console.log(err);
+      if (err.response.status === 401) {
+        removeSessions();
+      }
+    });
+};
+onMounted(() => {
+  isTimer = setInterval(Ping, 3000);
+});
+onUnmounted(() => clearInterval(isTimer));
 </script>
 
 <template>
@@ -107,10 +193,10 @@ const menuClick = (event, item) => {
       <FooterBar>
         Get more with
         <a
-          href="https://tailwind-vue.justboil.me/"
+          href="https://ats.com.vn/contact/"
           target="_blank"
           class="text-blue-600"
-          >Premium version</a
+          >Contact</a
         >
       </FooterBar>
     </div>

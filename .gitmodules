@@ -1,0 +1,9 @@
+[submodule "src/module/gatewaychannel"]
+	path = src/module/gatewaychannel
+	url = git@github.com:anhtdqATS/gatewaychannel.git
+[submodule "src/module/gatewayMapping"]
+	path = src/module/gatewayMapping
+	url = git@github.com:anhtdqATS/gatewayMapping.git
+[submodule "src/module/gatewayLogs"]
+	path = src/module/gatewayLogs
+	url = git@github.com:anhtdqATS/gatewayLogs.git

@@ -1,0 +1,39 @@
+:root {
+  --bg-node-tree: #f5f7fa;
+}
+
+.slider {
+  margin: 0px 15px;
+  line-height: 100%;
+  width: 1px;
+  background-color: #c1ccd1;
+  border: none;
+  cursor: w-resize;
+  user-select: none; /* disable selection */
+  text-align: center;
+}
+.blockTree {
+  width: 20%;
+}
+.blockList {
+  flex: 1; /* adjust automatically */
+  min-width: 0; /* allow flexing beyond auto width */
+  overflow: hidden; /* hide overflow on small width */
+}
+.el-tree-node__content {
+  height: auto;
+}
+.el-tree-node {
+  white-space: normal;
+  padding: 3px;
+}
+.el-tree {
+  background-color: unset !important;
+  color: unset !important;
+}
+.el-tree-node__content:hover {
+  background-color: var(--bg-node-tree);
+}
+.el-tree-node:focus > .el-tree-node__content {
+  background-color: var(--bg-node-tree);
+}
