@@ -11,6 +11,10 @@ import {
   mdiPalette,
   mdiBookCogOutline,
   mdiArrangeBringForward,
+  mdiVpn,
+  mdiSignalCellular2,
+  mdiLan,
+  mdiCogOutline,
 } from "@mdi/js";
 
 export default [
@@ -51,34 +55,41 @@ export default [
   },
   {
     permissions: ["admin", "engineer"],
-    to: "/tables",
-    label: "Tables",
-    icon: mdiTable,
+    label: "VPN",
+    icon: mdiVpn,
+    menu: [
+      {
+        permissions: ["admin", "engineer"],
+        to: "/openVPN",
+        label: "Open VPN",
+      },
+      {
+        permissions: ["admin", "engineer"],
+        to: "/ipsecVPN",
+        label: "Ipsec VPN",
+      },
+    ],
   },
   {
     permissions: ["admin", "engineer"],
-    to: "/forms",
-    label: "Forms",
-    icon: mdiSquareEditOutline,
+    to: "/network",
+    label: "Network",
+    icon: mdiLan,
   },
   {
     permissions: ["admin", "engineer"],
-    to: "/ui",
-    label: "UI",
-    icon: mdiTelevisionGuide,
+    to: "/cellular",
+    label: "Cellular",
+    icon: mdiSignalCellular2,
   },
+
   {
     permissions: ["admin", "engineer"],
     to: "/forwarder",
     label: "Forwarder",
     icon: mdiArrangeBringForward,
   },
-  {
-    permissions: ["admin", "engineer"],
-    to: "/",
-    label: "Styles",
-    icon: mdiPalette,
-  },
+
   {
     permissions: ["admin", "engineer"],
     to: "/profile",
@@ -87,29 +98,75 @@ export default [
   },
   {
     permissions: ["admin", "engineer"],
-    to: "/",
-    label: "Login",
-    icon: mdiLock,
-  },
-  {
-    permissions: ["admin", "engineer"],
-    to: "/error",
-    label: "Error",
-    icon: mdiAlertCircle,
-  },
-  {
-    permissions: ["admin", "engineer"],
-    label: "Dropdown",
-    icon: mdiViewList,
+    label: "Device",
+    icon: mdiCogOutline,
     menu: [
       {
         permissions: ["admin", "engineer"],
-        label: "Item One",
+        to: "/system",
+        label: "System",
       },
       {
         permissions: ["admin", "engineer"],
-        label: "Item Two",
+        to: "/import-export",
+        label: "Import/Export",
+      },
+      {
+        permissions: ["admin", "engineer"],
+        to: "/update-firmware",
+        label: "Update Firmware",
       },
     ],
   },
+  // {
+  //   permissions: ["admin", "engineer"],
+  //   to: "/error",
+  //   label: "Error",
+  //   icon: mdiAlertCircle,
+  // },
+  // {
+  //   permissions: ["admin", "engineer"],
+  //   label: "Dropdown",
+  //   icon: mdiViewList,
+  //   menu: [
+  //     {
+  //       permissions: ["admin", "engineer"],
+  //       label: "Item One",
+  //     },
+  //     {
+  //       permissions: ["admin", "engineer"],
+  //       label: "Item Two",
+  //     },
+  //   ],
+  // },
+  // {
+  //   permissions: ["admin", "engineer"],
+  //   to: "/tables",
+  //   label: "Tables",
+  //   icon: mdiTable,
+  // },
+  // {
+  //   permissions: ["admin", "engineer"],
+  //   to: "/forms",
+  //   label: "Forms",
+  //   icon: mdiSquareEditOutline,
+  // },
+  // {
+  //   permissions: ["admin", "engineer"],
+  //   to: "/ui",
+  //   label: "UI",
+  //   icon: mdiTelevisionGuide,
+  // },
+  // {
+  //   permissions: ["admin", "engineer"],
+  //   to: "/",
+  //   label: "Styles",
+  //   icon: mdiPalette,
+  // },
+  // {
+  //   permissions: ["admin", "engineer"],
+  //   to: "/",
+  //   label: "Login",
+  //   icon: mdiLock,
+  // },
 ];

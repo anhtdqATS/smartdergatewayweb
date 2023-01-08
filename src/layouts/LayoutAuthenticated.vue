@@ -19,12 +19,12 @@ const dataLogin = computed(() => JSON.parse(localStorage.getItem("dataLogin")));
 const d = new Date(dataLogin.value.dataTime);
 const time = d.toLocaleString("es-AR");
 
-console.log(dataLogin.value);
-
 useMainStore().setUser({
   userName: dataLogin.value.user,
   time: time,
 });
+
+useMainStore().getGatewayInfo();
 
 const layoutAsidePadding = "xl:pl-60";
 

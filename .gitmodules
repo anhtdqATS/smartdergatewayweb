@@ -7,3 +7,12 @@
 [submodule "src/module/gatewayLogs"]
 	path = src/module/gatewayLogs
 	url = git@github.com:anhtdqATS/gatewayLogs.git
+[submodule "src/module/gatewayVPN"]
+	path = src/module/gatewayVPN
+	url = git@github.com:anhtdqATS/gatewayVPN.git
+[submodule "src/module/gatewayCellular"]
+	path = src/module/gatewayCellular
+	url = git@github.com:anhtdqATS/gatewayCellular.git
+[submodule "src/module/smartDer"]
+	path = src/module/smartDer
+	url = git@github.com:anhtdqATS/smartDer.git

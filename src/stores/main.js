@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import baseApi from "./base/baseApi";
+import { GatewayServiceId } from "@/Constants/index.js";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -12,6 +14,7 @@ export const useMainStore = defineStore("main", {
     /* Sample data (commonly used) */
     clients: [],
     history: [],
+    gatewayInfo: "",
   }),
   actions: {
     setUser(payload) {
@@ -37,6 +40,75 @@ export const useMainStore = defineStore("main", {
             grouping: true,
             showClose: true,
             type: "warning",
+          });
+        });
+    },
+
+    getGatewayInfo() {
+      let dataLoad = {
+        receiver: GatewayServiceId,
+        payload: {
+          cmdType: 101,
+        },
+      };
+      baseApi
+        .getGatewayInfo(dataLoad)
+        .then((res) => {
+          if (res.data.error.length > 0) {
+            ElMessage({
+              message: "Data not return",
+              grouping: true,
+              showClose: true,
+              type: "warning",
+            });
+          } else {
+            console.log(res.data.payload);
+            this.gatewayInfo = res.data.payload;
+          }
+        })
+        .catch((err) => {
+          ElMessage({
+            message: err,
+            grouping: true,
+            showClose: true,
+            type: "error",
+          });
+        });
+    },
+
+    setGatewayInfo(name) {
+      let dataLoad = {
+        receiver: GatewayServiceId,
+        payload: {
+          cmdType: 103,
+          name: name,
+        },
+      };
+      baseApi
+        .setGatewayInfo(dataLoad)
+        .then((res) => {
+          if (res.data.error.length > 0) {
+            ElMessage({
+              message: "Data not return",
+              grouping: true,
+              showClose: true,
+              type: "warning",
+            });
+          } else {
+            ElMessage({
+              message: "Update success",
+              grouping: true,
+              showClose: true,
+              type: "success",
+            });
+          }
+        })
+        .catch((err) => {
+          ElMessage({
+            message: err,
+            grouping: true,
+            showClose: true,
+            type: "error",
           });
         });
     },

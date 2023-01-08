@@ -17,7 +17,8 @@ const routes = [
     },
     path: "/dashboard",
     name: "dashboard",
-    component: () => import("@/views/HomeView.vue"),
+    component: () =>
+      import("@/module/smartDer/dashboard/view/DashboardView.vue"),
   },
   {
     meta: {
@@ -51,6 +52,65 @@ const routes = [
     path: "/serviceLog",
     name: "serviceLog",
     component: () => import("@/module/gatewayLogs/view/serviceLog.vue"),
+  },
+  {
+    meta: {
+      title: "OpenVPN",
+    },
+    path: "/openVPN",
+    name: "openVPN",
+    component: () => import("@/module/gatewayVPN/openVPN/view/OpenVPNView.vue"),
+  },
+  {
+    meta: {
+      title: "IpsecVPN",
+    },
+    path: "/ipsecVPN",
+    name: "ipsecVPN",
+    component: () => import("@/module/gatewayVPN/ipsec/view/IpsecView.vue"),
+  },
+  {
+    meta: {
+      title: "Network",
+    },
+    path: "/network",
+    name: "network",
+    component: () => import("@/module/smartDer/network/view/NetworkView.vue"),
+  },
+  {
+    meta: {
+      title: "Cellular",
+    },
+    path: "/cellular",
+    name: "cellular",
+    component: () => import("@/module/gatewayCellular/view/CellularView.vue"),
+  },
+  {
+    meta: {
+      title: "System",
+    },
+    path: "/system",
+    name: "system",
+    component: () => import("@/module/smartDer/system/view/SystemView.vue"),
+  },
+
+  {
+    meta: {
+      title: "ImportExport",
+    },
+    path: "/import-export",
+    name: "import-export",
+    component: () =>
+      import("@/module/smartDer/importExport/view/ImportExportView.vue"),
+  },
+  {
+    meta: {
+      title: "UpdateFirmware",
+    },
+    path: "/update-firmware",
+    name: "updateFirmware",
+    component: () =>
+      import("@/module/smartDer/updateFirmware/view/updateFirmware.vue"),
   },
   {
     meta: {

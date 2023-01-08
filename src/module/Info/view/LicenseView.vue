@@ -9,13 +9,7 @@ import { GatewayServiceId } from "@/Constants/index.js";
 import cmdTypes from "../cmdTypes";
 
 import { mdiLicense } from "@mdi/js";
-import {
-  Cpu,
-  UploadFilled,
-  Select,
-  CircleCloseFilled,
-  InfoFilled,
-} from "@element-plus/icons-vue";
+import { Cpu, UploadFilled, InfoFilled } from "@element-plus/icons-vue";
 import baseApi from "../api/baseApi";
 
 const machineCode = ref([]);
@@ -93,9 +87,7 @@ const getLicenseInfo = () => {
 const fileImport = ref();
 const upload = ref();
 const handleExceedUpload = (files) => {
-  console.log("handleExceedUpload");
   upload.value.clearFiles();
-  console.log(files);
   const file = files[0];
   file.uid = genFileId();
   upload.value.handleStart(file);

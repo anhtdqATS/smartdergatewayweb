@@ -134,7 +134,6 @@ const createTCPForwarder = () => {
 };
 
 const editSerialForwarder = (param, oldName) => {
-  console.log(param);
   delete param.tcpClient;
   param.cmdType = cmdTypes.updateSerialForwarder;
   param.oldName = oldName;
