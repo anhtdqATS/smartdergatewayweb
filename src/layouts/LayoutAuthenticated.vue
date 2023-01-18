@@ -14,6 +14,9 @@ import AsideMenu from "@/components/AsideMenu.vue";
 import FooterBar from "@/components/FooterBar.vue";
 import mainApi from "./api/mainApi";
 import { GatewayServiceId } from "../Constants/index.js";
+import Loading from "@/components/Loading.vue";
+
+const store = useMainStore();
 
 const dataLogin = computed(() => JSON.parse(localStorage.getItem("dataLogin")));
 const d = new Date(dataLogin.value.dataTime);
@@ -42,7 +45,6 @@ router.beforeEach(() => {
 const darkMode = computed(() => {
   return useStyleStore().darkMode;
 });
-console.log(darkMode.value);
 const r = document.querySelector(":root");
 
 const setElementPlusDarkMode = () => {
@@ -189,7 +191,9 @@ onUnmounted(() => clearInterval(isTimer));
         @menu-click="menuClick"
         @aside-lg-close-click="isAsideLgActive = false"
       />
-      <slot />
+      <Loading v-if="useMainStore().isLoading"></Loading>
+
+      <slot v-else />
       <FooterBar>
         Get more with
         <a

@@ -10,7 +10,7 @@ export const useMainStore = defineStore("main", {
     time: null,
     /* Field focus with ctrl+k (to register only once) */
     isFieldFocusRegistered: false,
-
+    isLoading: false,
     /* Sample data (commonly used) */
     clients: [],
     history: [],
@@ -24,6 +24,10 @@ export const useMainStore = defineStore("main", {
       if (payload.time) {
         this.time = payload.time;
       }
+    },
+    setLoading(loading) {
+      console.log();
+      this.isLoading = loading;
     },
 
     fetch(sampleDataKey) {

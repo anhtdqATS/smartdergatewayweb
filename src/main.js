@@ -19,8 +19,8 @@ const mainStore = useMainStore(pinia);
 const styleStore = useStyleStore(pinia);
 
 /* Fetch sample data */
-mainStore.fetch("clients");
-mainStore.fetch("history");
+// mainStore.fetch("clients");
+// mainStore.fetch("history");
 
 /* App style */
 styleStore.setStyle(localStorage[styleKey] ?? "basic");
@@ -35,7 +35,7 @@ if (
 }
 
 /* Default title tag */
-const defaultDocumentTitle = "Admin ATS";
+const defaultDocumentTitle = "ATS SmartDER";
 
 /* Set document title from route meta */
 router.afterEach((to) => {

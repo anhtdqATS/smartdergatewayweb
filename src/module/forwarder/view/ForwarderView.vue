@@ -4,9 +4,10 @@ import SectionMain from "@/components/SectionMain.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
 import tableComponent from "../components/table.vue";
 import cmdTypes from "../cmdTypes";
+import { useMainStore } from "@/stores/main.js";
 
 import baseApi from "../api/baseApi";
-
+import Loading from "@/components/Loading.vue";
 import { mdiArrangeBringForward } from "@mdi/js";
 
 const tableDataSerial = ref([]);

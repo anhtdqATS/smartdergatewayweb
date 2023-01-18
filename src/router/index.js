@@ -1,5 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import { useMainStore } from "@/stores/main.js";
+
 import Login from "@/module/login/view/LoginView.vue";
+// const mainStore = useMainStore();
 const routes = [
   {
     meta: {
@@ -114,44 +117,12 @@ const routes = [
   },
   {
     meta: {
-      title: "Tables",
-    },
-    path: "/tables",
-    name: "tables",
-    component: () => import("@/views/HomeView.vue"),
-  },
-  {
-    meta: {
-      title: "Forms",
-    },
-    path: "/forms",
-    name: "forms",
-    component: () => import("@/views/FormsView.vue"),
-  },
-  {
-    meta: {
       title: "Profile",
       transition: "slide-left",
     },
     path: "/profile",
     name: "profile",
     component: () => import("@/module/profile/view/ProfileView.vue"),
-  },
-  {
-    meta: {
-      title: "Ui",
-    },
-    path: "/ui",
-    name: "ui",
-    component: () => import("@/views/UiView.vue"),
-  },
-  {
-    meta: {
-      title: "Select style",
-    },
-    path: "/styles",
-    name: "style",
-    component: () => import("@/views/StyleView.vue"),
   },
   {
     meta: {
@@ -162,14 +133,6 @@ const routes = [
     component: () => import("@/module/forwarder/view/ForwarderView.vue"),
   },
 
-  {
-    meta: {
-      title: "Error",
-    },
-    path: "/error",
-    name: "error",
-    component: () => import("@/views/ErrorView.vue"),
-  },
   {
     meta: {
       title: "About",
@@ -196,12 +159,17 @@ const router = createRouter({
   },
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, from, next) => {
   var dataLogin = localStorage.getItem("dataLogin");
-
   if (!dataLogin && to.name !== "login") {
     return { name: "login" };
   }
+  useMainStore().setLoading(true);
+  next();
+});
+
+router.afterEach((to, from) => {
+  useMainStore().setLoading(false);
 });
 
 export default router;
