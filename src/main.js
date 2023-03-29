@@ -7,6 +7,7 @@ import router from "./router";
 import { useMainStore } from "@/stores/main.js";
 import { useStyleStore } from "@/stores/style.js";
 import { darkModeKey, styleKey } from "@/config.js";
+// import HighchartsVue from "highcharts-vue";
 import "./css/main.css";
 /* Init Pinia */
 const pinia = createPinia();
@@ -21,7 +22,9 @@ const styleStore = useStyleStore(pinia);
 /* Fetch sample data */
 // mainStore.fetch("clients");
 // mainStore.fetch("history");
-
+// const nameDevice = computed(() => {
+//   return mainStore.nameGateway.value;
+// });
 /* App style */
 styleStore.setStyle(localStorage[styleKey] ?? "basic");
 
@@ -35,11 +38,5 @@ if (
 }
 
 /* Default title tag */
-const defaultDocumentTitle = "ATS SmartDER";
 
 /* Set document title from route meta */
-router.afterEach((to) => {
-  document.title = to.meta?.title
-    ? `${to.meta.title} — ${defaultDocumentTitle}`
-    : defaultDocumentTitle;
-});

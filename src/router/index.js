@@ -64,14 +64,14 @@ const routes = [
     name: "openVPN",
     component: () => import("@/module/gatewayVPN/openVPN/view/OpenVPNView.vue"),
   },
-  {
-    meta: {
-      title: "IpsecVPN",
-    },
-    path: "/ipsecVPN",
-    name: "ipsecVPN",
-    component: () => import("@/module/gatewayVPN/ipsec/view/IpsecView.vue"),
-  },
+  // {
+  //   meta: {
+  //     title: "IpsecVPN",
+  //   },
+  //   path: "/ipsecVPN",
+  //   name: "ipsecVPN",
+  //   component: () => import("@/module/gatewayVPN/ipsec/view/IpsecView.vue"),
+  // },
   {
     meta: {
       title: "Network",
@@ -170,6 +170,20 @@ router.beforeEach(async (to, from, next) => {
 
 router.afterEach((to, from) => {
   useMainStore().setLoading(false);
+});
+router.afterEach((to) => {
+  const defaultDocumentTitle = localStorage.getItem("nameGateway");
+  if (defaultDocumentTitle === null) {
+    document.title = "ATS SmartDER";
+  } else {
+    if (defaultDocumentTitle === "") {
+      document.title = "ATS SmartDER - " + to.meta.title;
+    } else {
+      document.title = to.meta?.title
+        ? `${defaultDocumentTitle} - ${to.meta.title}`
+        : defaultDocumentTitle;
+    }
+  }
 });
 
 export default router;

@@ -63,11 +63,11 @@ export default [
         to: "/openVPN",
         label: "Open VPN",
       },
-      {
-        permissions: ["admin", "engineer"],
-        to: "/ipsecVPN",
-        label: "Ipsec VPN",
-      },
+      // {
+      //   permissions: ["admin", "engineer"],
+      //   to: "/ipsecVPN",
+      //   label: "Ipsec VPN",
+      // },
     ],
   },
   {

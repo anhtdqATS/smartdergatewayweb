@@ -175,14 +175,14 @@ onUnmounted(() => clearInterval(isTimer));
         >
           <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
-        <NavBarItemPlain use-margin>
+        <!-- <NavBarItemPlain use-margin>
           <FormControl
             placeholder="Search (ctrl+k)"
             ctrl-k-focus
             transparent
             borderless
           />
-        </NavBarItemPlain>
+        </NavBarItemPlain> -->
       </NavBar>
       <AsideMenu
         :is-aside-mobile-expanded="isAsideMobileExpanded"

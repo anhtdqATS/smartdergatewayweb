@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import baseApi from "./base/baseApi";
 import { GatewayServiceId } from "@/Constants/index.js";
-
+import router from "../router/index";
 export const useMainStore = defineStore("main", {
   state: () => ({
     /* User */
@@ -14,7 +14,8 @@ export const useMainStore = defineStore("main", {
     /* Sample data (commonly used) */
     clients: [],
     history: [],
-    gatewayInfo: "",
+    gatewayInfo: Object,
+    nameGateway: "",
   }),
   actions: {
     setUser(payload) {
@@ -25,8 +26,8 @@ export const useMainStore = defineStore("main", {
         this.time = payload.time;
       }
     },
+
     setLoading(loading) {
-      console.log();
       this.isLoading = loading;
     },
 
@@ -48,14 +49,14 @@ export const useMainStore = defineStore("main", {
         });
     },
 
-    getGatewayInfo() {
+    async getGatewayInfo() {
       let dataLoad = {
         receiver: GatewayServiceId,
         payload: {
           cmdType: 101,
         },
       };
-      baseApi
+      await baseApi
         .getGatewayInfo(dataLoad)
         .then((res) => {
           if (res.data.error.length > 0) {
@@ -66,8 +67,8 @@ export const useMainStore = defineStore("main", {
               type: "warning",
             });
           } else {
-            console.log(res.data.payload);
             this.gatewayInfo = res.data.payload;
+            localStorage.setItem("nameGateway", res.data.payload.name);
           }
         })
         .catch((err) => {
@@ -99,6 +100,15 @@ export const useMainStore = defineStore("main", {
               type: "warning",
             });
           } else {
+            this.getGatewayInfo();
+            if (name === "") {
+              document.title =
+                "DASBOX - " + router.currentRoute.value.meta.title;
+            } else {
+              document.title = router.currentRoute.value.meta?.title
+                ? `${name} - ${router.currentRoute.value.meta.title}`
+                : name;
+            }
             ElMessage({
               message: "Update success",
               grouping: true,

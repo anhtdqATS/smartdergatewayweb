@@ -5,7 +5,7 @@
       this.func = func;
       if (typeof capture !== "boolean") {
         capture = capture || {};
-        capture.passive = false;
+        // capture.passive = false;
       }
       this.func(type, fn, capture);
     };
