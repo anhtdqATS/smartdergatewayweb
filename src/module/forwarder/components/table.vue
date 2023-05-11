@@ -21,6 +21,10 @@ const propsData = defineProps({
   },
 });
 
+const mode = computed(() => {
+  return propsData.title;
+});
+
 const emit = defineEmits([
   "update:dialogVisible",
   "createForwarder",
@@ -89,7 +93,7 @@ const handleClose = (done) => {
 
 const handleEdit = (index, data) => {
   oldName.value = data.name;
-  form.value = data;
+  form.value = JSON.parse(JSON.stringify(data));
   if (data.tcpServer.endPoints.length === 0) {
     form.value.tcpServer.endPoints = [
       {
@@ -164,13 +168,36 @@ const handleDelete = (index, data) => {
       </el-tooltip>
     </SectionTitleLineWithButton>
     <el-table :data="dataTable" :table-layout="tableLayout">
-      <el-table-column prop="name" label="Name" width="130" fixed />
-      <el-table-column prop="serial.baudRate" label="Baud Rate" />
-      <el-table-column prop="serial.port" label="Active Port" />
+      <el-table-column prop="name" label="Name" width="180" fixed />
+      <el-table-column
+        v-if="mode === 'Serial Forwarder'"
+        prop="serial.baudRate"
+        label="Baud Rate"
+        align="center"
+      />
+      <el-table-column
+        v-if="mode === 'Serial Forwarder'"
+        prop="serial.port"
+        label="Active Port"
+        align="center"
+      />
+      <el-table-column
+        v-if="mode === 'TCP Forwarder'"
+        prop="tcpClient.endPoints[0].address"
+        label="Client Address"
+        align="center"
+      />
+      <el-table-column
+        v-if="mode === 'TCP Forwarder'"
+        prop="tcpClient.endPoints[0].port"
+        label="Active Port"
+        align="center"
+      />
       <el-table-column
         prop="tcpServer.endPoints[0].port"
         label="Server Port"
         width="150"
+        align="center"
       />
       <el-table-column prop="enabled" label="Status" fixed="right" width="70">
         <template #default="scope">

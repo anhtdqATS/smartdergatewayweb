@@ -161,7 +161,7 @@ const editSerialForwarder = (param, oldName) => {
           showClose: true,
           type: "success",
         });
-        dialogVisible.value = false;
+        dialogVisibleSerial.value = false;
       }
     })
     .catch((err) => {
@@ -201,7 +201,7 @@ const editTCPForwarder = (param, oldName) => {
           showClose: true,
           type: "success",
         });
-        dialogVisible.value = false;
+        dialogVisibleTCP.value = false;
       }
     })
     .catch((err) => {

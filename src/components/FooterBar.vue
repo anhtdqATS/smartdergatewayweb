@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
         <slot />
       </div>
       <div class="md:py-2">
-        <a href="https://justboil.me">
+        <a href="https://ats.com.vn">
           <!-- <JustboilLogo class="w-auto h-8 md:h-6" /> -->
           <img
             src="/img/ATS-logo-transparent.ico"
