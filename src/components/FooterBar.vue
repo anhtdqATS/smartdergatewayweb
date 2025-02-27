@@ -1,31 +1,46 @@
 <script setup>
 import { containerMaxW } from "@/config.js";
 import BaseLevel from "@/components/BaseLevel.vue";
-// import JustboilLogo from "@/components/JustboilLogo.vue";
+import { useStyleStore } from "@/stores/style";
 
+const styleStore = useStyleStore();
 const year = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="py-2 px-6" :class="containerMaxW">
+  <footer
+    :class="[
+      containerMaxW,
+      styleStore.textStyle ? styleStore.textStyle : 'text-gray-500',
+    ]"
+    class="py-2 px-6"
+  >
     <BaseLevel>
       <div class="text-center md:text-left">
-        <b
-          >&copy;{{ year }},
-          <a href="https://ats.com.vn/" target="_blank">ats.com.vn</a>.</b
-        >
-        <slot />
+        <b>
+          <a
+            href="https://ats.com.vn"
+            target="_blank"
+            :class="
+              styleStore.textStyle
+                ? styleStore.textStyle
+                : 'text-blue-600 text-[15px]'
+            "
+          >
+            Copyright © ATS.jsc - All Rights Reserved
+          </a>
+        </b>
       </div>
-      <div class="md:py-2">
-        <a href="https://ats.com.vn">
-          <!-- <JustboilLogo class="w-auto h-8 md:h-6" /> -->
+
+      <ul class="grid grid-cols-1 gap-4">
+        <a href="javascript:void(0)" class="cursor-default">
           <img
-            src="/img/ATS-logo-transparent.ico"
+            src="/public/img/ATS-logo-transparent.ico"
             alt=""
-            class="h-12 w-12 rounded-full"
+            class="object-cover h-[30px] w-[30px]"
           />
         </a>
-      </div>
+      </ul>
     </BaseLevel>
   </footer>
 </template>

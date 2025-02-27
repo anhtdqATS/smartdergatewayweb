@@ -55,7 +55,7 @@ const form = ref({
   tcpServer: {
     endPoints: [
       {
-        address: "",
+        address: "0.0.0.0",
         allow: [],
         port: 0,
         receiveTimeout: 0,
@@ -97,7 +97,7 @@ const handleEdit = (index, data) => {
   if (data.tcpServer.endPoints.length === 0) {
     form.value.tcpServer.endPoints = [
       {
-        address: "",
+        address: "0.0.0.0",
         allow: [],
         port: 0,
         receiveTimeout: 0,
@@ -182,6 +182,7 @@ const handleDelete = (index, data) => {
         align="center"
       />
       <el-table-column
+        width="120"
         v-if="mode === 'TCP Forwarder'"
         prop="tcpClient.endPoints[0].address"
         label="Client Address"
@@ -190,13 +191,14 @@ const handleDelete = (index, data) => {
       <el-table-column
         v-if="mode === 'TCP Forwarder'"
         prop="tcpClient.endPoints[0].port"
+        width="110"
         label="Active Port"
         align="center"
       />
       <el-table-column
         prop="tcpServer.endPoints[0].port"
         label="Server Port"
-        width="150"
+        width="90"
         align="center"
       />
       <el-table-column prop="enabled" label="Status" fixed="right" width="70">
@@ -208,7 +210,7 @@ const handleDelete = (index, data) => {
           >
         </template>
       </el-table-column>
-      <el-table-column align="center" fixed="right" width="100">
+      <el-table-column align="center" fixed="right" width="120">
         <template #default="scope">
           <el-button
             size="small"

@@ -1,0 +1,17 @@
+:root {
+  --darkMainColor: #141c2f;
+}
+
+html.dark {
+  /* custom dark bg color */
+  /* --el-table-v2: #626aef; */
+  --el-bg-color: var(--darkMainColor);
+  --el-bg-color-overlay: var(--darkMainColor);
+  --el-color-primary-light-9: #313941;
+}
+.el-button + .el-button {
+  margin: 0 !important;
+}
+.el-message-box__btns button:nth-child(2) {
+  margin-left: 10px !important;
+}

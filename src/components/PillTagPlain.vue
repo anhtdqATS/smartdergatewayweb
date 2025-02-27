@@ -16,7 +16,7 @@ defineProps({
 
 <template>
   <div
-    class="inline-flex items-center capitalize leading-none"
+    class="inline-flex items-center capitalize leading-none text-center"
     :class="[small ? 'text-xs' : 'text-sm']"
   >
     <BaseIcon

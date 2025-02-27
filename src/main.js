@@ -7,8 +7,9 @@ import router from "./router";
 import { useMainStore } from "@/stores/main.js";
 import { useStyleStore } from "@/stores/style.js";
 import { darkModeKey, styleKey } from "@/config.js";
-// import HighchartsVue from "highcharts-vue";
+import "element-plus/theme-chalk/dark/css-vars.css";
 import "./css/main.css";
+// import dark theme
 /* Init Pinia */
 const pinia = createPinia();
 

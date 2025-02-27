@@ -11,7 +11,7 @@ export default defineComponent({
     },
   },
   render() {
-    const parentClass = [this.type, "items-center"];
+    const parentClass = [this.type, "items-center", "gap-x-2"];
 
     const parentMobileClass = ["flex"];
 
@@ -29,7 +29,7 @@ export default defineComponent({
       this.$slots.default().map((element, index) => {
         const childClass =
           !this.mobile && this.$slots.default().length > index + 1
-            ? childBaseClass.concat(["mb-6", "md:mb-0"])
+            ? childBaseClass.concat(["mb-6", "md:mb-1"])
             : childBaseClass;
 
         return h("div", { class: childClass }, [element]);

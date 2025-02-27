@@ -3,7 +3,7 @@ import { containerMaxW } from "@/config.js";
 </script>
 
 <template>
-  <section class="p-6" :class="containerMaxW">
+  <section class="px-6 py-2" :class="containerMaxW">
     <slot />
   </section>
 </template>

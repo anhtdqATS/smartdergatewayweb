@@ -40,20 +40,24 @@ defineProps({
     type: String,
     default: null,
   },
+  class: {
+    type: String,
+    default: null,
+  },
 });
 </script>
 
 <template>
   <CardBox>
     <BaseLevel v-if="trend" class="mb-3" mobile>
-      <PillTagTrend :trend="trend" :trend-type="trendType" small />
-      <BaseButton
+      <!-- <PillTagTrend :trend="trend" :trendType="trendType" small /> -->
+      <!-- <BaseButton
         :icon="mdiCog"
         icon-w="w-4"
         icon-h="h-4"
         color="lightDark"
         small
-      />
+      /> -->
     </BaseLevel>
     <BaseLevel mobile>
       <div>
@@ -61,7 +65,7 @@ defineProps({
           {{ label }}
         </h3>
         <h1 class="text-3xl leading-tight font-semibold">
-          <NumberDynamic :value="number" :prefix="prefix" :suffix="suffix" />
+          {{ number }}{{ suffix }}
         </h1>
       </div>
       <BaseIcon

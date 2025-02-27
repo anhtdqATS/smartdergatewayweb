@@ -1,9 +1,9 @@
 <script setup>
 import { computed } from "vue";
 import {
-  mdiCashMinus,
-  mdiCashPlus,
-  mdiReceipt,
+  mdiSunAngleOutline,
+  mdiWeatherSunny,
+  mdiCloudPercentOutline,
   mdiCreditCardOutline,
 } from "@mdi/js";
 import CardBox from "@/components/CardBox.vue";
@@ -20,13 +20,8 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  business: {
-    type: String,
-    required: true,
-  },
   type: {
     type: String,
-    required: true,
   },
   name: {
     type: String,
@@ -36,53 +31,62 @@ const props = defineProps({
     type: String,
     required: true,
   },
-});
-
-const icon = computed(() => {
-  if (props.type === "withdrawal") {
-    return {
-      icon: mdiCashMinus,
-      type: "danger",
-    };
-  } else if (props.type === "deposit") {
-    return {
-      icon: mdiCashPlus,
-      type: "success",
-    };
-  } else if (props.type === "invoice") {
-    return {
-      icon: mdiReceipt,
-      type: "warning",
-    };
-  }
-
-  return {
-    icon: mdiCreditCardOutline,
-    type: "info",
-  };
+  measure: {
+    type: String,
+    default: "W/m2",
+  },
+  icon: {
+    type: String,
+    required: true,
+  },
+  color: {
+    type: String,
+    default: "W/m2",
+  },
+  size: {
+    type: String,
+    default: "24",
+  },
+  h: {
+    type: String,
+    default: "h-12",
+  },
+  w: {
+    type: String,
+    default: "w-12",
+  },
 });
 </script>
 
 <template>
-  <CardBox class="mb-6 last:mb-0" is-hoverable>
-    <BaseLevel>
-      <BaseLevel type="justify-start">
-        <IconRounded :icon="icon.icon" :color="icon.type" class="md:mr-6" />
-        <div class="text-center space-y-1 md:text-left md:mr-6">
-          <h4 class="text-xl">${{ amount }}</h4>
-          <p class="text-gray-500 dark:text-slate-400">
-            <b>{{ date }}</b> via {{ business }}
-          </p>
-        </div>
-      </BaseLevel>
-      <div class="text-center md:text-right space-y-2">
+  <CardBox class="last:mb-0 w-full flex">
+    <BaseLevel class="h-full">
+      <!-- <BaseLevel type="justify-start items-center h-full"> -->
+      <IconRounded
+        :icon="icon"
+        :color="color"
+        :size="size"
+        :h="h"
+        :w="w"
+        class=""
+      />
+      <div class="text-center space-y-1 md:text-left">
+        <h4 class="text-xl">
+          <b> {{ amount }} </b> {{ measure }}
+        </h4>
+        <p class="text-gray-500 dark:text-slate-400">
+          {{ name }}
+        </p>
+      </div>
+      <!-- </BaseLevel> -->
+      <!-- <div class="text-center md:text-right space-y-2">
         <p class="text-sm text-gray-500">
           {{ name }}
         </p>
         <div>
           <PillTag :color="icon.type" :label="type" small />
         </div>
-      </div>
+      </div> -->
     </BaseLevel>
   </CardBox>
 </template>

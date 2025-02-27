@@ -11,11 +11,13 @@ import cmdTypes from "../cmdTypes";
 import { mdiLicense } from "@mdi/js";
 import { Cpu, UploadFilled, InfoFilled } from "@element-plus/icons-vue";
 import baseApi from "../api/baseApi";
-
-const machineCode = ref([]);
-const licenseInfo = ref([]);
-const dialogVisible = ref(false);
-
+import { useMainStore } from "@/stores/main.js";
+// useMainStore().getLicenseInfo();
+const machineCode = ref();
+const licenseInfo1 = ref([]);
+const licenseInfo2 = ref([]);
+const licenseInfo3 = ref([]);
+const loadLicense = ref(false);
 const getMachineCode = () => {
   const dataLoad = {
     receiver: GatewayServiceId,
@@ -29,13 +31,13 @@ const getMachineCode = () => {
     .then((res) => {
       if (res.data.error.length > 0) {
         ElMessage({
-          message: "Data not return",
+          message: res.data.error,
           grouping: true,
           showClose: true,
           type: "warning",
         });
       } else {
-        machineCode.value = res.data.payload.machineCode;
+        machineCode.value = res.data.payload.machineCode.join(",");
       }
     })
     .catch((err) => {
@@ -49,28 +51,33 @@ const getMachineCode = () => {
 };
 getMachineCode();
 
-const getLicenseInfo = () => {
-  openFullScreenLoading();
+const getLicenseInfo = async () => {
   const dataLoad = {
     receiver: GatewayServiceId,
     payload: {
-      cmdType: cmdTypes.getLicenseInfo,
+      cmdType: 202,
     },
   };
 
-  baseApi
+  await baseApi
     .getLicenseInfo(dataLoad)
     .then((res) => {
       if (res.data.error.length > 0) {
         ElMessage({
-          message: "Data not return",
+          message: res.data.error,
           grouping: true,
           showClose: true,
           type: "warning",
         });
       } else {
-        licenseInfo.value = res.data.payload.licInfo;
-        dialogVisible.value = true;
+        let licenseInfo = res.data.payload.licInfo;
+        loadLicense.value = true;
+        let length = licenseInfo.length;
+        let partSize = Math.ceil(length / 3);
+
+        licenseInfo1.value = licenseInfo.slice(0, partSize);
+        licenseInfo2.value = licenseInfo.slice(partSize, partSize * 2);
+        licenseInfo3.value = licenseInfo.slice(partSize * 2);
       }
     })
     .catch((err) => {
@@ -82,7 +89,7 @@ const getLicenseInfo = () => {
       });
     });
 };
-
+getLicenseInfo();
 // upload License
 const fileImport = ref();
 const upload = ref();
@@ -93,8 +100,6 @@ const handleExceedUpload = (files) => {
   upload.value.handleStart(file);
 };
 const handChangeUpload = (files) => {
-  console.log("handChangeUpload");
-  console.log(files);
   fileImport.value = files.raw;
 };
 
@@ -121,13 +126,20 @@ const uploadLicense = () => {
     .then((res) => {
       if (res.data.error.length > 0) {
         ElMessage({
-          message: "Data not return",
+          message: res.data.error,
           grouping: true,
           showClose: true,
           type: "warning",
         });
       } else {
         openFullScreenLoading();
+        getLicenseInfo();
+        ElMessage({
+          message: "Successfully updated !",
+          grouping: true,
+          showClose: true,
+          type: "success",
+        });
       }
     })
     .catch((err) => {
@@ -151,17 +163,19 @@ const openFullScreenLoading = () => {
     loading.close();
   }, 2000);
 };
+const loading = ref(true);
 </script>
 
 <template>
-  <LayoutAuthenticated>
-    <SectionMain>
-      <SectionTitleLineWithButton
-        :icon="mdiLicense"
-        title="License server activation"
-        main
-      >
-        <el-tooltip
+  <div>
+    <LayoutAuthenticated>
+      <SectionMain>
+        <SectionTitleLineWithButton
+          :icon="mdiLicense"
+          title="License server activation"
+          main
+        >
+          <!-- <el-tooltip
           class="box-item"
           effect="dark"
           content="License Info"
@@ -173,61 +187,104 @@ const openFullScreenLoading = () => {
             circle
             @click="getLicenseInfo"
           />
-        </el-tooltip>
-      </SectionTitleLineWithButton>
-      <CardBox class="mb-4">
-        <el-link type="primary" disabled>Machine Code</el-link>
-        <el-input
+        </el-tooltip> -->
+        </SectionTitleLineWithButton>
+        <CardBox class="mb-4">
+          <el-link type="primary" class="mb-4" disabled>Machine Code</el-link>
+          <el-descriptions :column="1" border>
+            <el-descriptions-item align="center">
+              <template #label>
+                <div class="cell-item">
+                  <el-icon>
+                    <Cpu />
+                  </el-icon>
+                </div>
+              </template>
+              {{ machineCode }}
+            </el-descriptions-item>
+          </el-descriptions>
+          <!-- <el-input
           v-model="machineCode"
-          class="w-50 m-2"
+          class="w-50 m-2 !cursor-auto"
           size="large"
-          disabled
           :prefix-icon="Cpu"
-        />
-      </CardBox>
-      <CardBox>
-        <el-link type="primary" disabled>Upload License</el-link>
-        <el-upload
-          ref="upload"
-          class="upload-demo mt-2"
-          drag
-          :limit="1"
-          :on-exceed="handleExceedUpload"
-          :on-change="handChangeUpload"
-          :auto-upload="false"
-        >
-          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-          <div class="el-upload__text">
-            Drop file here or <em>click to upload</em>
-          </div>
-          <template #tip>
-            <div class="el-upload__tip">
-              License files with a size less than 500kb
+        /> -->
+        </CardBox>
+        <CardBox class="mb-4">
+          <el-link type="primary" class="mb-4" disabled>License Info</el-link>
+          <div v-if="loadLicense">
+            <div v-if="licenseInfo1.length === 0">
+              <p class="text-2xl bg-red-600 text-center text-white">
+                NO LICENSE
+              </p>
+              <p class="m-4 text-blue-400">
+                * Please contact ATS for getting the license.
+              </p>
             </div>
-          </template>
-        </el-upload>
-        <div class="flex justify-center">
-          <el-button type="success" @click="uploadLicense" size="large" round>
-            Upload
-          </el-button>
-        </div>
-      </CardBox>
-    </SectionMain>
-    <!-- // dialog  -->
-    <el-dialog v-model="dialogVisible" title="License Information" width="30%">
-      <div v-if="licenseInfo.length === 0">
-        <p class="text-2xl bg-red-600 text-center text-white">NO LICENSE</p>
-        <p class="m-4 text-blue-400">
-          * Please contact ATS for getting the license.
-        </p>
-      </div>
-      <el-scrollbar>
-        <p v-for="item in licenseInfo" :key="item" class="scrollbar-demo-item">
-          {{ item }}
-        </p>
-      </el-scrollbar>
-    </el-dialog>
-  </LayoutAuthenticated>
+            <div class="grid grid-cols-3 gap-x-2">
+              <el-scrollbar>
+                <p
+                  v-for="item in licenseInfo1"
+                  :key="item"
+                  class="scrollbar-demo-item"
+                >
+                  {{ item }}
+                </p>
+              </el-scrollbar>
+              <el-scrollbar>
+                <p
+                  v-for="item in licenseInfo2"
+                  :key="item"
+                  class="scrollbar-demo-item"
+                >
+                  {{ item }}
+                </p>
+              </el-scrollbar>
+              <el-scrollbar>
+                <p
+                  v-for="item in licenseInfo3"
+                  :key="item"
+                  class="scrollbar-demo-item"
+                >
+                  {{ item }}
+                </p>
+              </el-scrollbar>
+            </div>
+          </div>
+          <div v-else>
+            <el-table v-loading="loading" style="width: 100%"> </el-table>
+          </div>
+        </CardBox>
+        <CardBox>
+          <el-link type="primary" disabled>Upload License</el-link>
+          <el-upload
+            ref="upload"
+            class="upload-demo mt-2"
+            drag
+            :limit="1"
+            :on-exceed="handleExceedUpload"
+            :on-change="handChangeUpload"
+            :auto-upload="false"
+          >
+            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <div class="el-upload__text">
+              Drop file here or <em>click to upload</em>
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                License files with a size less than 500kb
+              </div>
+            </template>
+          </el-upload>
+          <div class="flex justify-center">
+            <el-button type="success" @click="uploadLicense" size="large" round>
+              Upload
+            </el-button>
+          </div>
+        </CardBox>
+      </SectionMain>
+    </LayoutAuthenticated>
+  </div>
 </template>
 <style scoped>
 .scrollbar-demo-item {
@@ -240,5 +297,9 @@ const openFullScreenLoading = () => {
   border-radius: 4px;
   background: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
+  /* color: gainsboro */
+}
+.el-input.is-disabled .el-input__inner {
+  cursor: pointer;
 }
 </style>

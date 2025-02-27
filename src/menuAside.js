@@ -7,7 +7,7 @@ import {
   mdiSquareEditOutline,
   mdiTable,
   mdiViewList,
-  mdiTelevisionGuide,
+  mdiInformationOutline,
   mdiPalette,
   mdiBookCogOutline,
   mdiArrangeBringForward,
@@ -15,6 +15,7 @@ import {
   mdiSignalCellular2,
   mdiLan,
   mdiCogOutline,
+  mdiChartMultiple,
 } from "@mdi/js";
 
 export default [
@@ -38,6 +39,12 @@ export default [
   },
   {
     permissions: ["admin", "engineer"],
+    to: "/chartViewer",
+    label: "Chart Viewer",
+    icon: mdiChartMultiple,
+  },
+  {
+    permissions: ["admin", "engineer"],
     label: "Logs",
     icon: mdiViewList,
     menu: [
@@ -52,6 +59,13 @@ export default [
         label: " Service Log",
       },
     ],
+  },
+
+  {
+    permissions: ["admin", "engineer"],
+    to: "/forwarder",
+    label: "Forwarder",
+    icon: mdiArrangeBringForward,
   },
   {
     permissions: ["admin", "engineer"],
@@ -82,19 +96,28 @@ export default [
     label: "Cellular",
     icon: mdiSignalCellular2,
   },
-
-  {
-    permissions: ["admin", "engineer"],
-    to: "/forwarder",
-    label: "Forwarder",
-    icon: mdiArrangeBringForward,
-  },
-
   {
     permissions: ["admin", "engineer"],
     to: "/profile",
     label: "Profile",
     icon: mdiAccountCircle,
+  },
+  {
+    permissions: ["admin", "engineer"],
+    label: "Information",
+    icon: mdiInformationOutline,
+    menu: [
+      {
+        permissions: ["admin", "engineer"],
+        to: "/About",
+        label: "About",
+      },
+      {
+        permissions: ["admin", "engineer"],
+        to: "/license",
+        label: "License",
+      },
+    ],
   },
   {
     permissions: ["admin", "engineer"],

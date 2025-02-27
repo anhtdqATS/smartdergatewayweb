@@ -18,18 +18,19 @@ export default [
       {
         icon: mdiCogOutline,
         label: "Settings",
+        to: "/settings",
       },
       {
         isDivider: true,
       },
     ],
   },
-  // {
-  //   icon: mdiThemeLightDark,
-  //   label: "Light/Dark",
-  //   isDesktopNoLabel: true,
-  //   isToggleLightDark: true,
-  // },
+  {
+    icon: mdiThemeLightDark,
+    label: "Light/Dark",
+    isDesktopNoLabel: true,
+    isToggleLightDark: true,
+  },
   {
     icon: mdiContentSaveMoveOutline,
     label: "save gateway",

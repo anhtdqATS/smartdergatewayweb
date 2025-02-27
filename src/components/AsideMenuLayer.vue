@@ -1,6 +1,5 @@
 <script setup>
 import { mdiLicense, mdiClose } from "@mdi/js";
-import { computed } from "vue";
 import { useStyleStore } from "@/stores/style.js";
 import AsideMenuList from "@/components/AsideMenuList.vue";
 import AsideMenuItem from "@/components/AsideMenuItem.vue";
@@ -17,13 +16,13 @@ const emit = defineEmits(["menu-click", "aside-lg-close-click"]);
 
 const styleStore = useStyleStore();
 
-const logoutItem = ref({
-  permissions: ["admin", "engineer"],
-  label: "License Config",
-  icon: mdiLicense,
-  color: "info",
-  to: "/license",
-});
+// const logoutItem = ref({
+//   permissions: ["admin", "engineer"],
+//   label: "License Config",
+//   icon: mdiLicense,
+//   color: "info",
+//   to: "/license",
+// });
 
 const menuClick = (event, item) => {
   emit("menu-click", event, item);
@@ -50,7 +49,7 @@ const asideLgCloseClick = (event) => {
         <div
           class="text-center flex-1 lg:text-left lg:pl-6 xl:text-center xl:pl-0"
         >
-          <b class="font-black">ATS SmartDER</b>
+          <b class="font-black">ATS SmartDER </b>
         </div>
         <button
           class="hidden lg:inline-block xl:hidden p-3"
@@ -70,9 +69,9 @@ const asideLgCloseClick = (event) => {
         <AsideMenuList :menu="menu" @menu-click="menuClick" />
       </div>
 
-      <ul>
+      <!-- <ul>
         <AsideMenuItem :item="logoutItem" @menu-click="menuClick" />
-      </ul>
+      </ul> -->
     </div>
   </aside>
 </template>

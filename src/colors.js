@@ -12,6 +12,8 @@ export const colorsBgLight = {
   danger: "bg-red-500 border-red-500 text-white",
   warning: "bg-yellow-500 border-yellow-500 text-white",
   info: "bg-blue-500 border-blue-500 text-white",
+  // amber: "dark:text-amber-500",
+  // sky: "dark:text-sky-500",
 };
 
 export const colorsText = {
@@ -22,6 +24,10 @@ export const colorsText = {
   danger: "text-red-500",
   warning: "text-yellow-500",
   info: "text-blue-500",
+  amber: "text-amber-500",
+  sky: "text-sky-500",
+  pink: "text-pink-500",
+  teal: "text-teal-500",
 };
 
 export const colorsOutline = {
@@ -100,6 +106,8 @@ export const getButtonColor = (
       danger: "text-red-600 dark:text-red-500",
       warning: "text-yellow-600 dark:text-yellow-500",
       info: "text-blue-600 dark:text-blue-500",
+      amber: "text-amber-600 dark:text-amber-500",
+      sky: "text-sky-600 dark:text-sky-500",
     },
     outlineHover: {
       contrast:

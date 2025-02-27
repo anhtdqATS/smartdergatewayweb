@@ -15,7 +15,10 @@ export const useMainStore = defineStore("main", {
     clients: [],
     history: [],
     gatewayInfo: Object,
+    licenseInfo: [],
     nameGateway: "",
+    channelDashboardObjectId: "",
+    channelDashboardTypeId: "",
   }),
   actions: {
     setUser(payload) {
@@ -115,6 +118,38 @@ export const useMainStore = defineStore("main", {
               showClose: true,
               type: "success",
             });
+          }
+        })
+        .catch((err) => {
+          ElMessage({
+            message: err,
+            grouping: true,
+            showClose: true,
+            type: "error",
+          });
+        });
+    },
+
+    async getLicenseInfo() {
+      const dataLoad = {
+        receiver: GatewayServiceId,
+        payload: {
+          cmdType: 202,
+        },
+      };
+
+      await baseApi
+        .getLicenseInfo(dataLoad)
+        .then((res) => {
+          if (res.data.error.length > 0) {
+            ElMessage({
+              message: "Data not return",
+              grouping: true,
+              showClose: true,
+              type: "warning",
+            });
+          } else {
+            return res.data.payload.licInfo;
           }
         })
         .catch((err) => {

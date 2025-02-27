@@ -19,6 +19,10 @@ defineProps({
     type: String,
     default: "h-12",
   },
+  size: {
+    type: String,
+    default: "24",
+  },
   bg: Boolean,
 });
 </script>
@@ -28,7 +32,7 @@ defineProps({
     :path="icon"
     :w="w"
     :h="h"
-    size="24"
+    :size="size"
     class="rounded-full"
     :class="
       bg

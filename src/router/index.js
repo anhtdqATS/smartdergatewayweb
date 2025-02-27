@@ -20,8 +20,39 @@ const routes = [
     },
     path: "/dashboard",
     name: "dashboard",
-    component: () =>
-      import("@/module/smartDer/dashboard/view/DashboardView.vue"),
+    component: () => import("@/view/home.vue"),
+  },
+  {
+    meta: {
+      title: "Cellular",
+    },
+    path: "/cellular",
+    name: "cellular",
+    component: () => import("@/module/gatewayCellular/view/CellularView.vue"),
+  },
+  {
+    meta: {
+      title: "OpenVPN",
+    },
+    path: "/openVPN",
+    name: "openVPN",
+    component: () => import("@/module/gatewayVPN/openVPN/view/OpenVPNView.vue"),
+  },
+  {
+    meta: {
+      title: "Network",
+    },
+    path: "/network",
+    name: "network",
+    component: () => import("@/module/smartDer/network/view/NetworkView.vue"),
+  },
+  {
+    meta: {
+      title: "System",
+    },
+    path: "/system",
+    name: "system",
+    component: () => import("@/module/smartDer/system/view/SystemView.vue"),
   },
   {
     meta: {
@@ -58,62 +89,11 @@ const routes = [
   },
   {
     meta: {
-      title: "OpenVPN",
+      title: "ChartViewer",
     },
-    path: "/openVPN",
-    name: "openVPN",
-    component: () => import("@/module/gatewayVPN/openVPN/view/OpenVPNView.vue"),
-  },
-  // {
-  //   meta: {
-  //     title: "IpsecVPN",
-  //   },
-  //   path: "/ipsecVPN",
-  //   name: "ipsecVPN",
-  //   component: () => import("@/module/gatewayVPN/ipsec/view/IpsecView.vue"),
-  // },
-  {
-    meta: {
-      title: "Network",
-    },
-    path: "/network",
-    name: "network",
-    component: () => import("@/module/smartDer/network/view/NetworkView.vue"),
-  },
-  {
-    meta: {
-      title: "Cellular",
-    },
-    path: "/cellular",
-    name: "cellular",
-    component: () => import("@/module/gatewayCellular/view/CellularView.vue"),
-  },
-  {
-    meta: {
-      title: "System",
-    },
-    path: "/system",
-    name: "system",
-    component: () => import("@/module/smartDer/system/view/SystemView.vue"),
-  },
-
-  {
-    meta: {
-      title: "ImportExport",
-    },
-    path: "/import-export",
-    name: "import-export",
-    component: () =>
-      import("@/module/smartDer/importExport/view/ImportExportView.vue"),
-  },
-  {
-    meta: {
-      title: "UpdateFirmware",
-    },
-    path: "/update-firmware",
-    name: "updateFirmware",
-    component: () =>
-      import("@/module/smartDer/updateFirmware/view/updateFirmware.vue"),
+    path: "/chartViewer",
+    name: "ChartViewer",
+    component: () => import("@/module/RecordeModule/view/recorder.vue"),
   },
   {
     meta: {
@@ -149,6 +129,24 @@ const routes = [
     name: "license",
     component: () => import("@/module/Info/view/LicenseView.vue"),
   },
+  {
+    meta: {
+      title: "ImportExport",
+    },
+    path: "/import-export",
+    name: "import-export",
+    component: () =>
+      import("@/module/smartDer/importExport/view/ImportExportView.vue"),
+  },
+  {
+    meta: {
+      title: "UpdateFirmware",
+    },
+    path: "/update-firmware",
+    name: "updateFirmware",
+    component: () =>
+      import("@/module/smartDer/updateFirmware/view/updateFirmware.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -170,20 +168,6 @@ router.beforeEach(async (to, from, next) => {
 
 router.afterEach((to, from) => {
   useMainStore().setLoading(false);
-});
-router.afterEach((to) => {
-  const defaultDocumentTitle = localStorage.getItem("nameGateway");
-  if (defaultDocumentTitle === null) {
-    document.title = "ATS SmartDER";
-  } else {
-    if (defaultDocumentTitle === "") {
-      document.title = "ATS SmartDER - " + to.meta.title;
-    } else {
-      document.title = to.meta?.title
-        ? `${defaultDocumentTitle} - ${to.meta.title}`
-        : defaultDocumentTitle;
-    }
-  }
 });
 
 export default router;

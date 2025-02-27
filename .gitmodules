@@ -16,3 +16,6 @@
 [submodule "src/module/smartDer"]
 	path = src/module/smartDer
 	url = git@github.com:anhtdqATS/smartDer.git
+[submodule "src/module/RecordeModule"]
+	path = src/module/RecordeModule
+	url = git@github.com:anhtdqATS/RecordeModule.git

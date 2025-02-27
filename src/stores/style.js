@@ -44,12 +44,10 @@ export const useStyleStore = defineStore("style", {
       }
 
       if (typeof document !== "undefined") {
-        document.body.classList[this.darkMode ? "add" : "remove"](
-          "dark-scrollbars"
-        );
+        document.body.classList[this.darkMode ? "add" : "remove"]("dark");
 
         document.documentElement.classList[this.darkMode ? "add" : "remove"](
-          "dark-scrollbars-compat"
+          "dark"
         );
       }
     },

@@ -28,7 +28,7 @@ const componentClass = computed(() => [
 
 <template>
   <PillTagPlain
-    class="border rounded-full"
+    class="border rounded-full text-center"
     :class="componentClass"
     :icon="icon"
     :label="label"
